@@ -1,0 +1,19 @@
+# Application launch
+alias go='gnome-open'
+alias octave='octave --no-gui'
+# alias matlab="matlab -nodesktop -nosplash" #using wrapper $HOME/bin/matlab instead
+
+# Display
+alias l='ls -CF'
+alias sl='ls -s --block-size=MB' # Size-list
+alias less='less -i'
+
+# Navigation
+alias cdwork='cd $HOME/Documents/Jobb/phd'
+
+# SLURM
+alias squeue='squeue -u$USER -o "%.7i %.9P %.8j %.8u %.2t %.10M %.6D %16S %R"'
+alias watch-queue="watch '"'squeue -u$USER -o "%.7i %.9P %.8j %.8u %.2t %.10M %.6D %16S %R"'"'"
+
+# SSH
+alias ssh="ssh -X" # Use X-forwarding by default.

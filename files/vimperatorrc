@@ -1,0 +1,6 @@
+"Turn the navigation toolbar off:
+:set gui=nonavigation
+
+"Correct focus for youtube and google
+autocmd PageLoad (www\\.youtube|github|groups.google)\\.com :normal <Esc>
+

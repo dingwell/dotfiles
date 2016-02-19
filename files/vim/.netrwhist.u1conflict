@@ -1,0 +1,7 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='/home/adam/Models/FLEXPART-WRF/comp_w_obs'
+let g:netrw_dirhist_2='/home/adam/Models/FLEXPART-WRF/run_eyja'
+let g:netrw_dirhist_3='/home/adam/Models/FLEXPART-WRF/run_eyja2'
+let g:netrw_dirhist_4='/home/adam/Models/FLEXPART-WRF/run_eyja3'
+let g:netrw_dirhist_5='/home/adam/Dropbox/Shared Documents/phd/studies/neurope/ppflx'
