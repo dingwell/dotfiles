@@ -8,14 +8,16 @@
 #cd files
 
 WORKDIR=$(pwd)
-SUBDIR=files
-FILES=$(ls $SUBDIR)
 
 # Create a directory for backing up old dotfiles
 DATE=$(date "+%Y-%m-%d_%H:%M:%S")
 BAKDIR="$HOME/dotfiles_$DATE"
 echo "Creating backup directory: '$BAKDIR'"
 mkdir $BAKDIR
+
+# Start with main dotfiles (directly under $HOME)
+SUBDIR=files
+FILES=$(ls $SUBDIR)
 
 for i in $FILES; do
   # Backup original file (if it exists)
@@ -28,3 +30,31 @@ for i in $FILES; do
   # Create a link to the file in the repository
   ln -sv $WORKDIR/$SUBDIR/$i "$FILE_ORIG"
 done
+
+# For files under ./config -- play it safe -- don't link entire directories
+# stick with files!
+SUBDIR=config_files
+if [ -d "$SUBDIR" ]; then
+  echo "Working with $HOME/.config, I'll try to be careful!"
+  echo "STILL TESTING!"
+
+  # List all files under any level of sub-directories to $SUBDIR
+  FILES=$(cd $SUBDIR && find * -type f)
+
+  for i in $FILES; do
+    FILE_ORIG="$HOME/.config/$i"  # Get target file+path
+
+    # Backup target file (if it already exists):
+    if [ -f "$FILE_ORIG" ]; then  # Target exists as file
+      SUBDIR_BAK=$(dirname $i)
+      mkdir -vp "$BAKDIR/.config/$SUBDIR_BAK"
+      mv -v $FILE_ORIG "$BAKDIR/$SUBDIR_BAK/"
+    elif [ -L "$FILE_ORIG" ]; then # Target exists as link
+      rm -v $FILE_ORIG
+    fi
+
+    ln -sv $WORKDIR/$SUBDIR/$i "$FILE_ORIG"
+  done
+else
+  echo "No directory named '$SUBDIR', good, I will not do anything with '$HOME/.config'"
+fi
