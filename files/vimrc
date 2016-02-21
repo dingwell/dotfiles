@@ -10,8 +10,9 @@ endif
   set guicursor+=a:blinkon0
 
 "Indentation settings
-  set tabstop=2
   set expandtab
+  set tabstop=2
+  set softtabstop=2
   set shiftwidth=2
   set smarttab autoindent
 
@@ -51,4 +52,9 @@ endif
   set wildmode=list:full
   set wildmenu
   au BufRead,BufNewFile *.ncl set dictionary=~/.vim/dictionary/ncl.dic
+  
+" Vimlatex-suite
+set grepprg=grep\ -nH\ $*
+let g:tex_flavor='latex'
+"let g:Tex_AutoFolding = 1
 

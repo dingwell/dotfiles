@@ -17,7 +17,7 @@ mkdir $BAKDIR
 
 # Start with main dotfiles (directly under $HOME)
 SUBDIR=files
-FILES=$(ls $SUBDIR)
+FILES=$(ls $SUBDIR|grep -v '~'$) # list all files not ending with '~'
 
 for i in $FILES; do
   # Backup original file (if it exists)
