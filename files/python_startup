@@ -1,0 +1,9 @@
+# These commands will be executed whenever an interactive python shell is
+# launched, if ${PYTHONSTARTUP} points to this file.
+
+# Import useful modules:
+import numpy as np
+import netCDF4 as nc
+import matplotlib.pyplot as plt
+import datetime
+from mpl_toolkits.basemap import Basemap

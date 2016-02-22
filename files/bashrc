@@ -105,6 +105,7 @@ export MIDAS_DATA_DIR=/mnt/DATA/obs/midas
 export WRF_MIDAS_ROOT=$HOME/programming/git/compare_wrf_midas
 export PYWRFPATH=.:$HOME/programming/git/external/pyWRF
 export PYTHONPATH=.:$HOME/python:/usr/local/lib/python:$PYWRFPATH
+export PYTHONSTARTUP=$HOME/.python_startup
 export MATLABPATH=.:$HOME/matlab/pilt_functions:$HOME/matlab/googleearth  # Will automatically append ~/matlab if it exists
 
 # The following was set to make OPT-installed packages work (mainly NCO)
