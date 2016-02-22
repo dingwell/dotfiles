@@ -48,7 +48,7 @@ if [ -d "$SUBDIR" ]; then
     if [ -f "$FILE_ORIG" ]; then  # Target exists as file
       SUBDIR_BAK=$(dirname $i)
       mkdir -vp "$BAKDIR/.config/$SUBDIR_BAK"
-      mv -v $FILE_ORIG "$BAKDIR/$SUBDIR_BAK/"
+      mv -v $FILE_ORIG "$BAKDIR/.config/$SUBDIR_BAK/"
     elif [ -L "$FILE_ORIG" ]; then # Target exists as link
       rm -v $FILE_ORIG
     fi
