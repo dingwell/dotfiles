@@ -1,0 +1,24 @@
+# Collection of useful functions, should be loaded when sourcing .bashrc
+
+fdate () {
+  # Allow printing some basic usage instructions:
+  if [ "$1" == "-h" ]; then
+    echo "fdate will return a list of files with matching modification dates."
+    echo "Will recursively scan subdirectories."
+    echo -e "Usage:"
+    echo -e "\t fdate DATE DIR1 [DIR2]"
+    echo -e "\t DATE should be on a format acceptable by the date command."
+    return 0
+  fi
+
+  DATE1=$(date -d "$1" "+%Y-%m-%d")
+  if [ ! -z "$DATE1" ]; then  # Only run if $DATE1 is non-empty
+    DATE2=$(date -d "$DATE1 1day" "+%Y-%m-%d")
+  else  # If first date command failed, exit here.
+    echo "First argument should be a string which can be interpreted by the date command."
+    return 1
+  fi
+  DIRECTORIES=${@:2}  # Directories to scan # Directories to scan
+
+  find $DIRECTORIES -type f -newermt "$DATE1" ! -newermt "$DATE2"
+}
