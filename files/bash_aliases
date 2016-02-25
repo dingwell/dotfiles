@@ -28,6 +28,11 @@ alias less='less -i'                # Case insensitive searches
 # Navigation
 alias cdwork='cd $HOME/Documents/Jobb/phd'
 
+# Notification
+#   Run alert like this:
+#     sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
 # SLURM
 alias squeue='squeue -u$USER -o "%.7i %.9P %.8j %.8u %.2t %.10M %.6D %16S %R"'
 alias watch-queue="watch '"'squeue -u$USER -o "%.7i %.9P %.8j %.8u %.2t %.10M %.6D %16S %R"'"'"
