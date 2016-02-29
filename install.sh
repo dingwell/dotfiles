@@ -44,12 +44,17 @@ if [ -d "$SUBDIR" ]; then
   for i in $FILES; do
     FILE_ORIG="$HOME/.config/$i"  # Get target file+path
 
-    # Backup target file (if it already exists):
-    if [ -f "$FILE_ORIG" ]; then  # Target exists as file
-      SUBDIR_BAK=$(dirname $i)
-      mkdir -vp "$BAKDIR/.config/$SUBDIR_BAK"
-      mv -v $FILE_ORIG "$BAKDIR/.config/$SUBDIR_BAK/"
-    elif [ -L "$FILE_ORIG" ]; then # Target exists as link
+    # Ensure that target directory exists:
+    CONFIG_DIR=".config/$(dirname $i)"  # Path relative to ~ or backup root
+    if [[ -d $HOME/$CONFIG_DIR ]]; then # Directory does not exist
+      mkdir -vp "$HOME/$CONFIG_DIR"
+    fi
+
+    # Backup target file (if needed):
+    if [[ -f $FILE_ORIG ]]; then  # Target exists as file
+      mkdir -vp "$BAKDIR/$CONFIG_DIR"
+      mv -v $FILE_ORIG "$BAKDIR/$CONFIG_DIR/"
+    elif [[ -L $FILE_ORIG ]]; then # Target exists as link
       rm -v $FILE_ORIG
     fi
 
