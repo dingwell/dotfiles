@@ -1,5 +1,6 @@
 # Collection of useful functions, should be loaded when sourcing .bashrc
 
+# Find files within a directory tree which were created on a given date
 fdate () {
   # Allow printing some basic usage instructions:
   if [ "$1" == "-h" ]; then
@@ -8,6 +9,9 @@ fdate () {
     echo -e "Usage:"
     echo -e "\t fdate DATE DIR1 [DIR2]"
     echo -e "\t DATE should be on a format acceptable by the date command."
+    echo -e "Examples:"
+    echo -e "\t List all files in your home directory which were created yesterday:"
+    echo -e "\t\t'ls $(fdate yesterday $HOME)'"
     return 0
   fi
 
@@ -21,4 +25,19 @@ fdate () {
   DIRECTORIES=${@:2}  # Directories to scan # Directories to scan
 
   find $DIRECTORIES -type f -newermt "$DATE1" ! -newermt "$DATE2"
+}
+
+# Safe wrapper for colordiff:
+colordiff_safe () {
+  # Check if colordiff is installed:
+  if which colordiff &> /dev/null; then
+    colordiff $@
+  else  # colordiff not in path, use ordinary diff instead:
+    echo -e "\e[91mFor color support install colordiff\e[00m"
+    # Run diff command with absolute path:
+    $(which diff) $@ 
+    # WARNING: We use '$(which diff) $@' to prevent infinite loops when
+    #   alias diff='colordiff_safe'
+    # is set. (Which should be set in bash_aliases)
+  fi
 }
