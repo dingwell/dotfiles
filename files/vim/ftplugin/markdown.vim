@@ -1,5 +1,7 @@
 " Markdown
 
+" Automatic line breaks:
+set textwidth=80
 
 "Use \w in normal mode to save the current file AND save a copy in html named:
 "   original_filename.html
