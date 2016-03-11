@@ -40,8 +40,8 @@ alias cdwork='cd $HOME/Documents/Jobb/phd'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # SLURM
-alias squeue='squeue -u$USER -o "%.7i %.9P %.8j %.8u %.2t %.10M %.6D %16S %R"'
-alias watch-queue="watch '"'squeue -u$USER -o "%.7i %.9P %.8j %.8u %.2t %.10M %.6D %16S %R"'"'"
+alias squeue='squeue -u$USER -o "%.8i %.9P %.8j %.8u %.2t %.10M %.6D %16S %R"'
+alias watch-queue="watch '"'squeue -u$USER -o "%.8i %.9P %.8j %.8u %.2t %.10M %.6D %16S %R"'"'"
 
 # SSH
 alias ssh="ssh -X" # Use X-forwarding by default.
