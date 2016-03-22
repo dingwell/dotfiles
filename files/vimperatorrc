@@ -1,5 +1,7 @@
-"Turn the navigation toolbar off:
+"Turn the navigation toolbar off [bugfix for Australis theme]
 :set gui=nonavigation
+"Allow some nav-bar content (e.g. menus normally found on the nav-bar) [bugfix for Australis theme]
+:style -name ublick * #nav-bar * { visibility: visible; }
 
 "Unfocus on certain pages
 autocmd PageLoad (www\\.youtube|github|groups.google)\\.com :normal <Esc>
