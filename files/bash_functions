@@ -1,5 +1,30 @@
 # Collection of useful functions, should be loaded when sourcing .bashrc
 
+# Safe wrapper for colordiff:
+colordiff_safe () {
+  # Check if colordiff is installed:
+  if which colordiff &> /dev/null; then
+    colordiff $@
+  else  # colordiff not in path, use ordinary diff instead:
+    echo -e "\e[91mFor color support install colordiff\e[00m"
+    # Run diff command with absolute path:
+    $(which diff) $@ 
+    # WARNING: We use '$(which diff) $@' to prevent infinite loops when
+    #   alias diff='colordiff_safe'
+    # is set. (Which I have set in bash_aliases)
+  fi
+}
+
+# Converts spaces to commas (useful for quick csv re-formatting)
+spc2com () {
+  echo "$@" | sed -r 's/\s+/,/g'
+}
+
+# Converts commas to spaces (useful for quick csv re-formatting)
+com2spc () {
+  echo "$@" | sed -r 's/,/ /g'
+}
+
 # Find files within a directory tree which were created on a given date
 fdate () {
   # Allow printing some basic usage instructions:
@@ -25,19 +50,4 @@ fdate () {
   DIRECTORIES=${@:2}  # Directories to scan # Directories to scan
 
   find $DIRECTORIES -type f -newermt "$DATE1" ! -newermt "$DATE2"
-}
-
-# Safe wrapper for colordiff:
-colordiff_safe () {
-  # Check if colordiff is installed:
-  if which colordiff &> /dev/null; then
-    colordiff $@
-  else  # colordiff not in path, use ordinary diff instead:
-    echo -e "\e[91mFor color support install colordiff\e[00m"
-    # Run diff command with absolute path:
-    $(which diff) $@ 
-    # WARNING: We use '$(which diff) $@' to prevent infinite loops when
-    #   alias diff='colordiff_safe'
-    # is set. (Which should be set in bash_aliases)
-  fi
 }
