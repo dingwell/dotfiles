@@ -1,0 +1,66 @@
+# Test to get rid of dbus session error:
+#eval $(dbus-launch --sh-syntax)
+#export DBUS_SESSION_BUS_ADDRESS DBUS_SESSION_BUS_PID
+echo "DISPLAY=$DISPLAY"
+echo "SESSION_MANAGER=$SESSION_MANAGER"
+# Set default Xsession Apps:
+export BROWSER=/usr/bin/firefox
+
+# Keyboard modifications:
+xmodmap -e "keycode 91 mod2 = KP_Delete period"   #Get numpad dot
+xmodmap -e "keycode 135 = Super_L" # Make "menu"-key a right "super"
+
+# Mouse configuration
+set_mouse_sensitivity.sh  # Handled by shell script
+
+  # gnome-settings-daemon &      # handles themes, starts gnome-screensaver. You may have to use gconf to disable it setting the background.
+  # xfce4-session &		# Session manager (required for xfdesktop?)
+  # xfdesktop &			# Manages the desktop (unable to display windows when running with awesome)
+  # xfce4-mixer			# Audio Mixer (how to run as applet??)
+  # update-notifier		# Checks for updates (will crash the session!?)
+  # system-config-printer-applet	# System tray print job manager
+  # blueman-applet			# Managing bluetooth devices
+  # gnome-power-manager &        # for laptops and stuff
+  # gnome-volume-manager &       # for mounting CDs, USB sticks, and such
+
+#------------------------------#
+#   Auto-start applications    #
+#------------------------------#
+ # Run Keyring daemon
+ eval $(gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh)
+  #   export SSH_AUTH_SOCK
+  #   export GPG_AGENT_INFO
+  #   export GNOME_KEYRING_CONTROL
+  #   export GNOME_KEYRING_PID
+ # Launch misc applications:
+ blueman-applet &                       # Bluetooth manager
+ claws-mail &                           # Claw e-mail client
+ dropbox start &                        # Dropbox
+ firefox &                              # Firefox web browser
+ nm-applet &                            # Network Manager
+ pulseaudio --start &		                # Pulse audio server
+ pybliographic "${HOME}/Documents/Jobb_local/references/bibliography.bib"
+ xfce4-volumed			                    # Daemon for managing MM-keys (volume)
+ gnome-encfs-manager &                  # GUI for mounting encrypted drives
+ #gtg &                                  # Getting thing GNOME, planner
+ empathy &
+ conky -c .conkyrc_main --pause=10 &    # Conky might crash if launched before WM, therefore: pause
+ conky -c .conkyrc_remote.single_monitor --pause 10 &
+ 
+# Use transparency on each screen
+ xcompmgr -d :0.0 &
+ xcompmgr -d :0.1 &
+
+ # Create a temporary file, used by awesome to determine
+ # which programs to launch at startup.
+ # If the file is present, it will be removed and 
+ # some programs will be launched.
+ # If it is not present, these programs will not be launched
+ # (This is an ugly quickfix for my dual monitor setup...)
+ echo "created by ~/.xinitrc, used by awesome-wm (adam)" > /tmp/AWM
+
+# Execute the window manager:
+ exec awesome                 # awesome receives xinit's process id; when it terminates, X will be terminated
+ #exec /usr/bin/awesome >> ~/.cache/awesome/stdout 2>> ~/.cache/awesome/stderr
+
+
