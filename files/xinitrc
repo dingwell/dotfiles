@@ -39,17 +39,19 @@ set_mouse_sensitivity.sh  # Handled by shell script
  firefox &                              # Firefox web browser
  nm-applet &                            # Network Manager
  pulseaudio --start &		                # Pulse audio server
- pybliographic "${HOME}/Documents/Jobb_local/references/bibliography.bib"
+ pybliographic "${HOME}/Documents/Jobb_local/references/bibliography.bib" &
  xfce4-volumed			                    # Daemon for managing MM-keys (volume)
  gnome-encfs-manager &                  # GUI for mounting encrypted drives
  #gtg &                                  # Getting thing GNOME, planner
- empathy &
+ #empathy &
+ # Set Desktop wallpaper and launch Conky:
+ nitrogen --restore &
  conky -c .conkyrc_main --pause=10 &    # Conky might crash if launched before WM, therefore: pause
  conky -c .conkyrc_remote.single_monitor --pause 10 &
  
 # Use transparency on each screen
  xcompmgr -d :0.0 &
- xcompmgr -d :0.1 &
+ #xcompmgr -d :0.1 &
 
  # Create a temporary file, used by awesome to determine
  # which programs to launch at startup.
