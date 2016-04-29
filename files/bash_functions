@@ -51,3 +51,11 @@ fdate () {
 
   find $DIRECTORIES -type f -newermt "$DATE1" ! -newermt "$DATE2"
 }
+
+mycompile () {
+  ./compile $@ 2>&1 |tee compile.log |grep --color -C 1 -i error
+}
+
+mymake () {
+  make $@ 2>&1 |tee compile.log |grep -C 1 -i error
+}
