@@ -1,5 +1,9 @@
 "Color Scheme
-  colorscheme zenburn
+"  colorscheme zenburn
+"  colorscheme molokai
+"  colorscheme evolution
+"  colorscheme molokai_dark
+  colorscheme antares
 
 "Jump to last position when re-opening a file
 if has("autocmd")
