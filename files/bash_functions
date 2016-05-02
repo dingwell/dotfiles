@@ -7,11 +7,20 @@ colordiff_safe () {
     colordiff $@
   else  # colordiff not in path, use ordinary diff instead:
     echo -e "\e[91mFor color support install colordiff\e[00m"
-    # Run diff command with absolute path:
-    $(which diff) $@ 
-    # WARNING: We use '$(which diff) $@' to prevent infinite loops when
+    # Run diff command with absolute path to prevent infinite loops when
     #   alias diff='colordiff_safe'
     # is set. (Which I have set in bash_aliases)
+    HAS_RUN=false
+    for i in $(echo $PATH|sed 's/:/ /g'); do
+      if [[ -f $i/diff ]]; then
+        $i/diff $@
+        HAS_RUN=true
+        break
+      fi
+    done
+    if ! $HAS_RUN; then # Notify user if no diff command was found
+      echo "No command 'diff' in $PATH" 1>&2
+    fi
   fi
 }
 
