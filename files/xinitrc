@@ -39,7 +39,7 @@ set_mouse_sensitivity.sh  # Handled by shell script
  firefox &                              # Firefox web browser
  nm-applet &                            # Network Manager
  pulseaudio --start &		                # Pulse audio server
- pybliographic "${HOME}/Documents/Jobb_local/references/bibliography.bib" &
+ #pybliographic "${HOME}/Documents/Jobb_local/references/bibliography.bib" &  # Interferes with AWM's init
  xfce4-volumed			                    # Daemon for managing MM-keys (volume)
  gnome-encfs-manager &                  # GUI for mounting encrypted drives
  #gtg &                                  # Getting thing GNOME, planner
