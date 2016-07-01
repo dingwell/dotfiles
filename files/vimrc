@@ -10,6 +10,9 @@ if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
+"Turn on line-numbering by default:
+  set number
+
 "Disable blinking cursor
   set guicursor+=a:blinkon0
 
@@ -25,7 +28,7 @@ endif
   filetype indent on
 
 "
-" Filetype specific
+" Filetype specific (TODO: move to filetype specific config files)
 "
 
 " NCL Syntax
