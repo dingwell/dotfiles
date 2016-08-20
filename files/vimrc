@@ -1,15 +1,22 @@
 "Color Scheme
-  colorscheme zenburn
+"  colorscheme zenburn
+"  colorscheme molokai
+"  colorscheme evolution
+"  colorscheme molokai_dark
+  colorscheme antares
 
 "Jump to last position when re-opening a file
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
+"Turn on line-numbering by default:
+  set number
+
 "Disable blinking cursor
   set guicursor+=a:blinkon0
 
-"Indentation settings
+" Default indentation settings
   set expandtab
   set tabstop=2
   set softtabstop=2
@@ -21,40 +28,21 @@ endif
   filetype indent on
 
 "
-" Filetype specific
+" Filetype specific (TODO: move to filetype specific config files)
 "
-
-
-" Octave Syntax
-"    augroup filetypedetect
-"        au! BufRead,BufNewFile *.m,*.oct setfiletype octave
-"    augroup END
-
-" matchit required for matlab stuff (improves the % command) %included by
-" default?
-  source $HOME/.vim/plugin/matchit.vim
-
-
-" Matlab
-  let mlint_hover = 0  
-" source $VIMRUNTIME/macros/matchit.vim
-" source $HOME/.vim/macros/matchit.vim
-" autocmd BufEnter *.m    compiler mlint
-" au Bufread,BufNewFile *.m set filetype=matlab
-" au! Syntax newlang source $VIM/matlab.vim
 
 " NCL Syntax
   au Bufread,BufNewFile *.ncl set filetype=ncl
   au! Syntax newlang source $VIM/ncl.vim
 
-" NCL autocompletion
-  set complete-=k complete+=k 
-  set wildmode=list:full
-  set wildmenu
-  au BufRead,BufNewFile *.ncl set dictionary=~/.vim/dictionary/ncl.dic
+" Python
+  au BufRead,BufNewFile *.py set filetype=python
+
+" Shell (sh)
+  let g:sh_fold_enabled = 1
   
 " Vimlatex-suite
-set grepprg=grep\ -nH\ $*
-let g:tex_flavor='latex'
-"let g:Tex_AutoFolding = 1
+  set grepprg=grep\ -nH\ $*
+  let g:tex_flavor='latex'
+  "let g:Tex_AutoFolding = 1
 

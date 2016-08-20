@@ -1,5 +1,39 @@
 # Collection of useful functions, should be loaded when sourcing .bashrc
 
+# Safe wrapper for colordiff:
+colordiff_safe () {
+  # Check if colordiff is installed:
+  if which colordiff &> /dev/null; then
+    colordiff $@
+  else  # colordiff not in path, use ordinary diff instead:
+    echo -e "\e[91mFor color support install colordiff\e[00m"
+    # Run diff command with absolute path to prevent infinite loops when
+    #   alias diff='colordiff_safe'
+    # is set. (Which I have set in bash_aliases)
+    HAS_RUN=false
+    for i in $(echo $PATH|sed 's/:/ /g'); do
+      if [[ -f $i/diff ]]; then
+        $i/diff $@
+        HAS_RUN=true
+        break
+      fi
+    done
+    if ! $HAS_RUN; then # Notify user if no diff command was found
+      echo "No command 'diff' in $PATH" 1>&2
+    fi
+  fi
+}
+
+# Converts spaces to commas (useful for quick csv re-formatting)
+spc2com () {
+  echo "$@" | sed -r 's/\s+/,/g'
+}
+
+# Converts commas to spaces (useful for quick csv re-formatting)
+com2spc () {
+  echo "$@" | sed -r 's/,/ /g'
+}
+
 # Find files within a directory tree which were created on a given date
 fdate () {
   # Allow printing some basic usage instructions:
@@ -27,17 +61,66 @@ fdate () {
   find $DIRECTORIES -type f -newermt "$DATE1" ! -newermt "$DATE2"
 }
 
-# Safe wrapper for colordiff:
-colordiff_safe () {
-  # Check if colordiff is installed:
-  if which colordiff &> /dev/null; then
-    colordiff $@
-  else  # colordiff not in path, use ordinary diff instead:
-    echo -e "\e[91mFor color support install colordiff\e[00m"
-    # Run diff command with absolute path:
-    $(which diff) $@ 
-    # WARNING: We use '$(which diff) $@' to prevent infinite loops when
-    #   alias diff='colordiff_safe'
-    # is set. (Which should be set in bash_aliases)
+mycompile () {
+  ./compile $@ 2>&1 |tee compile.log |grep --color -C 1 -i error
+}
+
+mymake () {
+  make $@ 2>&1 |tee compile.log |grep -C 1 -i error
+}
+
+# Rate quality of a sentence by running some statistics (still very simple)
+rate_sentence () {
+  # DON'T TAKE THIS SCRIPT TOO SERIOUSLY, I WROTE DURING LUNCH WHEN I WAS BORED
+  # IN A FULL DOCUMENT THERE MUST BE A "NATURAL" MIX OF LONG AND SHORT WORDS/SENTENCES
+  # IN ORDER TO KEEP THE READER INTERESTED.
+  # THIS SCRIPT IS SIMPLY BASED ON SOME AVERAGE METRICS AND CANNOT POSSIBLY CAPTURE
+  # THE COMPLEXITIES OF GOOD WRITING
+  # AT BEST, IT SHOULD BE USED TO NOTIFY YOU OF POSSIBLY TRICKY SENTENCES
+  local SENTENCE="$@"
+  NWORDS=$(echo "$SENTENCE" | wc -w)
+  NLETTERS=$(echo "$SENTENCE" | sed 's/[^[:alpha:]]//g' | wc -c)
+  
+  # Grade length of sentence:
+  if [[ $NWORDS -lt 20 ]]; then
+    GRADE_SENT_LENGTH="\e[32mGood\e[00m"
+  elif [[ $NWORDS -le 25 ]]; then
+    GRADE_SENT_LENGTH="\e[32mOk\e[00m"
+  elif [[ $NWORDS -le 30 ]]; then
+    GRADE_SENT_LENGTH="\e[33mA bit long\e[00m"
+  elif [[ $NWORDS -le 35 ]]; then
+    GRADE_SENT_LENGTH="\e[31mLong\e[00m"
+  elif [[ $NWORDS -le 40 ]]; then
+    GRADE_SENT_LENGTH="\e[1;31mVery Long\e[00m"
+  else
+    GRADE_SENT_LENGTH="\e[41mExhausting\e[00m"
   fi
+
+  # Calculate average letters per 100 words:
+  N_LET_PER_WORD=$(echo "100*$NLETTERS/$NWORDS"|bc)
+  echo $N_LET_PER_WORD
+
+  # Grade length of words:
+  if [[ $N_LET_PER_WORD -le 250 ]]; then
+    GRADE_WORD_LENGTH="\e[33mShort\e[00m"
+  elif [[ $N_LET_PER_WORD -le 330 ]]; then
+    GRADE_WORD_LENGTH="\e[32mGood\e[00m"
+  elif [[ $N_LET_PER_WORD -le 410 ]]; then
+    GRADE_WORD_LENGTH="\e[33mA bit long\e[00m"
+  elif [[ $N_LET_PER_WORD -le 800 ]]; then
+    GRADE_WORD_LENGTH="\e[31mLong\e[00m"
+  elif [[ $N_LET_PER_WORD -le 2000 ]]; then
+    GRADE_WORD_LENGTH="\e[1;31mVery Long\e[00m"
+  else
+    GRADE_WORD_LENGTH="\e[41mExhausting\e[00m"
+  fi
+
+
+  # For the output, adjust N_LET_PER_WORD to be in actual letters (not "centi-letters")
+  N_LET_PER_WORD=$(echo "scale=2; $N_LET_PER_WORD/100"|bc)
+
+  echo -e "Grade:"
+  echo -e "Words per sentence:\t$NWORDS\t$GRADE_SENT_LENGTH"
+  echo -e "Letters per word:\t$N_LET_PER_WORD\t$GRADE_WORD_LENGTH"
+  
 }

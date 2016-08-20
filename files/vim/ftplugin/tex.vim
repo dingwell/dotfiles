@@ -17,4 +17,4 @@ function! WC()
   let result = system(cmd)
   echo result . " words"
 endfunction
-command WC call WC()
+command! WC call WC()

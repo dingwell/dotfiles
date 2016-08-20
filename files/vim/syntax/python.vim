@@ -73,11 +73,11 @@
 
 " For version 5.x: Clear all syntax items
 " For version 6.x: Quit when a syntax file was already loaded
-if version < 600
-  syntax clear
-elseif exists("b:current_syntax")
-  finish
-endif
+"if version < 600
+syntax clear
+"elseif exists("b:current_syntax")
+"  finish
+"endif
 
 if exists("python_highlight_all") && python_highlight_all != 0
   " Not override previously set options
@@ -120,7 +120,7 @@ syn keyword pythonStatement	global assert
 syn keyword pythonStatement	lambda yield
 syn keyword pythonStatement	with nonlocal
 syn keyword pythonStatement	False None True
-syn keyword pythonStatement	def class nextgroup=pythonFunction skipwhite
+"syn keyword pythonStatement	def class nextgroup=pythonFunction skipwhite
 syn match   pythonFunction	"\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*" display contained
 syn keyword pythonRepeat	for while
 syn keyword pythonConditional	if elif else
