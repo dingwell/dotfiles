@@ -27,6 +27,8 @@ endif
   filetype plugin on
   filetype indent on
 
+"Mouse settings
+  set mouse=c   "Enforce command-line mouse settings even in gvim
 "
 " Filetype specific (TODO: move to filetype specific config files)
 "
