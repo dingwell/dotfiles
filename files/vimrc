@@ -13,6 +13,9 @@ endif
 "Turn on line-numbering by default:
   set number
 
+"Highlight the cursor line:
+  set cursorline
+
 "Disable blinking cursor
   set guicursor+=a:blinkon0
 
