@@ -61,6 +61,56 @@ fdate () {
   find $DIRECTORIES -type f -newermt "$DATE1" ! -newermt "$DATE2"
 }
 
+# Diff command for use on Fortran code
+# Ignores empty lines or lines which only include comments
+fort_diff () {
+  # Allow printing some basic usage instructions:
+  USAGE="$(basename "$FUNCNAME") [-h] -- Function to quickly compare two Fortan source files
+
+  where:
+      -h  show this help text
+      -c  pre-delete comments
+      -e  pre-delete empty lines
+      -v  verbose output (list active filters and the main command)
+
+      all other arguments will be passed on to diff"
+
+  local OPTERR OPTIND OPTARG OPTION
+  local PIPES DIFF_OPTS FILTERS VERBOSE
+
+  # Default settings:
+  #OPTERR=0          # Don't display shell errors for unknown options as these
+                    # will be sent on to diff
+  VERBOSE=false
+
+  while getopts ':hcev' OPTION; do
+    case "$OPTION" in 
+      h)  echo "$USAGE"
+          return 0
+          ;;
+      c)  PIPES="$PIPES|sed '/^\s*!/d' |sed 's/!.*$//'"
+          FILTERS="$FILTERS comments"
+          ;;
+      e)  PIPES="$PIPES|sed '/^\s*$/d'"
+          FILTERS="$FILTERS pipes"
+          ;;
+      v)  VERBOSE=true
+          ;;
+      \?) DIFF_OPTS="$DIFF_OPTS -$OPTARG"
+          ;;
+    esac
+  done
+  shift $((OPTIND - 1))
+  FILE1=$1
+  FILE2=$2
+
+  if $VERBOSE; then
+    echo "FILTERS: $FILTERS"
+    echo "Command: diff $DIFF_OPTS <(cat '$FILE1'$PIPES) <(cat '$FILE2'$PIPES)"
+  fi
+  diff $DIFF_OPTS <(eval 'cat "$FILE1"'"$PIPES") <(eval 'cat "$FILE2"'"$PIPES")
+}
+
 mycompile () {
   ./compile $@ 2>&1 |tee compile.log |grep --color -C 1 -i error
 }
