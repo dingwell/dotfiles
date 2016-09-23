@@ -23,7 +23,7 @@ The files are only linked and the originals must be kept for the setup to work.
   therefore, the install script will only replace specific files
   (not entire directories).
   *Only include files that are safe to share between different
-  versions of software to **config_files/** *
+  versions of software to* **config_files/**
 * Some configuration files are stored under **$HOME/.local**.
   **dotfiles** manages these files using the same rules as for
   **$HOME/.config**.
