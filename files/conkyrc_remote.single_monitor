@@ -1,0 +1,60 @@
+conky.config = {
+	alignment = 'top_left',-- Text alignment
+	background = false,
+	border_inner_margin = 5,
+	border_width = 1,
+	color1 = 'black',
+	cpu_avg_samples = 3,-- No. of cpu samples to average
+	default_bar_width = 60, default_bar_height = 8,-- For execbar: x y
+	default_color = 'white',
+	default_outline_color = 'black',
+	default_shade_color = 'black',
+	display = ':0.0',-- Which X-display to use
+	double_buffer = true,-- 
+	draw_borders = false,
+	draw_outline = false,
+	draw_shades = false,
+	font = 'Impact:size=11',-- Default font
+	format_human_readable = true,-- use KiB,MiB etc instead of Bytes
+	gap_x = 30,-- Gap between borders of screen and text
+	gap_y = 105,
+	maximum_width = 220,
+	minimum_width = 220, minimum_height = 800,-- Minimum size of text area
+	net_avg_samples = 3,-- No. of network samples to average
+	no_buffers = true,-- Subtract file system buffers from used memory?
+	override_utf8_locale = true,-- Force UTF8 encoding? (req. XFT)
+	own_window = true,-- Draws own window (required for xcompmgr)
+-- own_window_color = 'white',
+	own_window_transparent = true,-- If transparent: looks like own_window=no
+  own_window_argb_visual = true,
+  own_window_argb_value = 255,
+	own_window_type = 'override',-- normal, desktop, override
+	stippled_borders = 0,
+	update_interval = 30,-- In seconds
+	uppercase = false,-- Display all letter as upper case?
+	use_spacer = 'true',-- Add spaces to keep things from moving about?
+	use_xft = true,-- Anti-aliased font, etc.
+	xftalpha = 0.8,
+};
+
+conky.text = [[
+
+${font Impact:style=Bold}OBSERVATIONS${font} ${hr 2}
+${font Impact:style=Bold}LOCATION ${alignr} TEMP${font}
+${font BitStream Charter:Normal:size=11}Geocentrum  ${alignr} ${exec /home/adam/.conky_temp_geo.sh}
+Flogsta     ${alignr} ${exec /home/adam/.conky_temp_flo.sh}
+Södra Gottsunda ${alignr} ${exec /home/adam/.conky_temp_got.sh}
+Gamla Uppsala  ${alignr} ${exec /home/adam/.conky_temp_gam.sh}${font}
+${voffset -10}${hr 1}${voffset}
+
+#${font Impact:style=Bold}FORECAST${font} ${hr}
+#...later...
+#${font Impact:style=Bold}UPPMAX${font} ${hr 2}
+#${font BitStream Charter:Normal:size=11}     System     ${alignr}Pending   In Use     ${font}
+#${font StyleBats:size=18}8${font} KALKYL ${alignr}${exec /home/adam/.conky_kalkyl_pending.sh}       ${execbar /home/adam/.conky_kalkyl_usage.sh}
+${font Impact:style=Bold}SLURM JOBS${font} ${hr 2}
+${font Impact:style=Bold} JOBID                   NAME${alignr}TIME${font}
+${voffset -10}${hr 1}${voffset}
+${font Ubuntu Mono:Normal:size=11}${exec /home/adam/.conky_slurm_squeues.sh}${font}
+${voffset -10}${hr 1}${voffset}
+]];

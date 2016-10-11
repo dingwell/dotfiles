@@ -1,0 +1,89 @@
+conky.config = {
+  alignment = 'middle_right',
+  background = false,
+  border_width = 0,
+  cpu_avg_samples = 2,
+  default_color = 'white',
+  default_outline_color = 'white',
+  default_shade_color = 'white',
+  draw_borders = false,
+  draw_graph_borders = true,
+  draw_outline = false,
+  draw_shades = false,
+  double_buffer = true,
+  use_xft = true,
+  font = 'Impact:size=11',
+  gap_x = 20,
+  gap_y = 0,
+  minimum_height = 5,
+  minimum_width = 200,
+  net_avg_samples = 2,
+  no_buffers = true,
+  out_to_console = false,
+  out_to_stderr = false,
+  extra_newline = false,
+  own_window = true,
+  own_window_class = 'Conky',
+  own_window_transparent = true,
+  own_window_argb_visual = true,
+  own_window_argb_value = 255,
+  own_window_type = 'override',
+  stippled_borders = 0,
+  update_interval = 1.0,
+  uppercase = false,
+  use_spacer = 'none',
+  show_graph_scale = false,
+  show_graph_range = false
+}
+
+conky.text = [[
+${font Impact:style=Bold}SYSTEM${font} ${hr 2}
+${font BitStream Charter:Normal:size=11}     Core     ${alignr}Used      Load       ${font}
+${font Discus:size=16}o${font} CPU1: ${alignr}${cpu cpu1} %       ${cpubar cpu1 8,60}
+${font Discus:size=16}d${font} CPU2: ${alignr}${cpu cpu2} %       ${cpubar cpu2 8,60}
+${font Discus:size=16}c${font} CPU3: ${alignr}${cpu cpu3} %       ${cpubar cpu3 8,60}
+${font Discus:size=16}e${font} CPU4: ${alignr}${cpu cpu4} %       ${cpubar cpu4 8,60}
+${font Discus:size=16}u${font} CPU5: ${alignr}${cpu cpu5} %       ${cpubar cpu5 8,60}
+${font Discus:size=16}v${font} CPU6: ${alignr}${cpu cpu6} %       ${cpubar cpu6 8,60}
+${font Discus:size=16}8${font} CPU7: ${alignr}${cpu cpu7} %       ${cpubar cpu7 8,60}
+${font Discus:size=16}b${font} CPU8: ${alignr}${cpu cpu8} %       ${cpubar cpu8 8,60}
+${voffset -10}${hr 1}${voffset}
+${font Discus:size=16}s${font} Total: ${alignr}${cpu} %       ${cpubar 8,60}
+#${voffset 10}$
+${font StyleBats:size=16}G${font} RAM: ${alignr}$mem       ${membar 8, 60}
+${font StyleBats:size=16}J${font} SWAP: ${alignr}$swap       ${swapbar 8,60}
+#${font StyleBats:size=16}G${font} RAM: ${alignr}$memperc %       ${membar 8, 60}
+#${font StyleBats:size=16}J${font} SWAP: ${alignr}$swapperc %       ${swapbar 8,60}
+#${font KacstOne:size=16}KacstOne${font} (Bat.): ${battery_percent BAT0}% ${alignr}${battery_bar 8,60 BAT0}
+#${font StyleBats:size=16}L${font}   Temperature: ${alignr}${acpitemp}C
+${font StyleBats:size=16}L${font}   Temperature: ${alignr}${hwmon temp 1}C
+${font StyleBats:size=16}Q${font}   Uptime: ${alignr}${uptime}
+${font Impact:style=Bold}FILE SYSTEM${font} ${hr 2}
+${font BitStream Charter:Normal:size=11}      FS ${alignr}Free       Usage      ${font}
+#${font LMSansDemiCond10:size=16}LMSansDemiCond${font} Root: 
+${font Catharsis Circular:size=20}X${font}  /     ${alignr}${fs_free /}    ${fs_bar 8,60 /}
+${font Catharsis Circular:size=20}E${font}  /var  ${alignr}${fs_free /var}    ${fs_bar 8,60 /var}
+${font Catharsis Circular:size=20}n${font}  /tmp  ${alignr}${fs_free /tmp}    ${fs_bar 8,60 /tmp}
+${font Catharsis Circular:size=20}H${font}  /home ${alignr}${fs_free /home}    ${fs_bar 8,60 /home}
+${font Catharsis Circular:size=20}G${font}  DATA  ${alignr}${fs_free /mnt/DATA}     ${fs_bar 8,60 /mnt/DATA}
+#${font Catharsis Circular:size=20}G${font}  DATA2 ${alignr}${fs_free /mnt/DATA2}    ${fs_bar 8,60 /mnt/DATA2}
+${font Catharsis Circular:size=20}G${font}  DATA3 ${alignr}${fs_free /mnt/DATA3}    ${fs_bar 8,60 /mnt/DATA3}
+${font Catharsis Circular:size=20}G${font}  DATA4 ${alignr}${fs_free /mnt/DATA4}    ${fs_bar 8,60 /mnt/DATA4}
+${font Catharsis Circular:size=20}D${font}  WRF01 ${alignr}${fs_free /mnt/WRF01}    ${fs_bar 8,60 /mnt/WRF01}
+${font Impact:style=Bold}NETWORK${font} ${hr 2}
+${font BitStream Charter:Normal:size=11}      LAN ${alignr}(${addr eno1})
+${font Arrows:size=18}g${font}  Up: ${alignr}${upspeed eno1} \
+${upspeedgraph eth0 12,60 000000 000000}
+${font Arrows:size=18}f${font}  Down: ${alignr}${downspeed eno1} \
+${downspeedgraph eth0 12,60 000000 000000}
+${font Impact:style=Bold}PROCESSES${font} ${hr 2}
+NAME                                  $alignr PID        CPU  
+#${font BitStream Charter:Normal:size=11}
+${font Ubuntu Mono:Normal:size=11}${top name 1} $alignr ${top pid 1} ${top cpu 1}
+${top name 2} $alignr ${top pid 2} ${top cpu 2}
+${top name 3} $alignr ${top pid 3} ${top cpu 3}
+${top name 4} $alignr ${top pid 4} ${top cpu 4}
+${top name 5} $alignr ${top pid 5} ${top cpu 5}
+${top name 6} $alignr ${top pid 6} ${top cpu 6}
+${font}
+]];
