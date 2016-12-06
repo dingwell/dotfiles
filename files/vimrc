@@ -13,6 +13,9 @@ endif
 "Turn on line-numbering by default:
   set number
 
+"Highlight the cursor line:
+  set cursorline
+
 "Disable blinking cursor
   set guicursor+=a:blinkon0
 
@@ -27,6 +30,8 @@ endif
   filetype plugin on
   filetype indent on
 
+"Mouse settings
+  set mouse=c   "Enforce command-line mouse settings even in gvim
 "
 " Filetype specific (TODO: move to filetype specific config files)
 "

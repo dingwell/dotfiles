@@ -1,23 +1,31 @@
 # dotfiles
 
 ## Install instructions:
-From this directory, run **./install.sh**
+From root directory of dotfiles, run **./install.sh**
 The install script will create a backup folder under **$HOME** named
 **backup[DATE]**.
-All original dotfile will be moved to the backup directory.
-Symlinks will be deleted, not moved (since the target file should is safely
+All dotfiles, which will be replaced by the install script, are first moved 
+to the backup directory.
+Symlinks will be deleted, not moved (since the target file should be safely
 stored somewhere else).
-Do *NOT* delete this directory after installation! the files are only linked
-and the originals must be kept for the setup to work.
+Do *NOT* delete the root directory of dotfiles after installation!
+The files are only linked and the originals must be kept for the setup to work.
 
 ## Adding more files to the repository
-The **install.sh** script will scan the contents of **./files.** and create
-corresponding symlinks under **$HOME**.
-The **$HOME/.config** directory could be added as any other file within
-**./files.**, however, this is not recommended since sharing application
-settings between systems can be buggy. Some sub-directories to
-**$HOME/.config** are fairly safe. A good approach would be to manage **.config**
-separately (i.e. create a separate folder next to **./files**) and only replace
-individual sub-directories, known to be safe.
-This would require some updates **./install.sh**.
-
+* The **install.sh** script will scan the contents of **./files**,
+  backup corresponding files/directories under **$HOME**
+  and replace them with symlinks.
+* Configuration files stored under **$HOME/.config/** are treated separately.
+  Corresponding files should be placed in the **config\_files/** directory,
+  following the same folder structure as under **$HOME/.config/**.
+  Many files under **$HOME/.config/** are specific to the installed versions
+  of software packages;
+  therefore, the install script will only replace specific files
+  (not entire directories).
+  *Only include files that are safe to share between different
+  versions of software to* **config_files/**
+* Some configuration files are stored under **$HOME/.local**.
+  **dotfiles** manages these files using the same rules as for
+  **$HOME/.config**.
+  Add files to **$HOME/.local** by adding corresponding files to
+  **local\_files/**
