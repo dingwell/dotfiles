@@ -112,8 +112,9 @@ fi
 export AFS2=$HOME/Models/stable/flx_wrf2/AFS2
 export WRF=$HOME/local/lib/ncarg/nclscripts/wrf
 #export NETCDF=$HOME/local
-export NCARG_ROOT=/usr/lib/ncarg
-export NCARG_COLORMAPS=$HOME/ncl/colormaps:$NCARG_ROOT/lib/ncarg/colormaps
+export NCARG_ROOT=/opt
+export NCARG_COLORMAP_PATH=$HOME/ncl/colormaps
+#export NCARG_COLORMAPS=$HOME/ncl/colormaps:$NCARG_ROOT/lib/ncarg/colormaps
 export MIDAS_DATA_DIR=/mnt/DATA/obs/midas
 export WRF_MIDAS_ROOT=$HOME/programming/git/compare_wrf_midas
 export PYWRFPATH=.:$HOME/programming/git/external/pyWRF
