@@ -63,6 +63,25 @@ com2spc () {
   echo "$@" | sed -r 's/,/ /g'
 }
 
+# Find matching libraries in your LD_LIBRARY_PATH:
+liblocate(){ 
+  # We need to redefine $IFS for this to work (default separator):
+  IFS_OLD="$IFS"
+  IFS=":"
+
+  PATTERN="$1"
+  
+  # Search library path:
+  for p in ${LD_LIBRARY_PATH}; do
+    if [ -e ${p}/*$PATTERN* ]; then
+      ls ${p}/*PATTERN*
+    fi
+  done
+
+  # Restore $IFS
+  IFS="$IFS_OLD"
+}
+
 # Find files within a directory tree which were created on a given date
 fdate () {
   # Allow printing some basic usage instructions:
