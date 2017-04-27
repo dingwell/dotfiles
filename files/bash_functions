@@ -73,8 +73,8 @@ liblocate(){
   
   # Search library path:
   for p in ${LD_LIBRARY_PATH}; do
-    if [ -e ${p}/*$PATTERN* ]; then
-      ls ${p}/*PATTERN*
+    if ls ${p}/*"$PATTERN"* &> /dev/null; then
+      ls ${p}/*"$PATTERN"*
     fi
   done
 
