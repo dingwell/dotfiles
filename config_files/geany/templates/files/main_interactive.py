@@ -15,15 +15,12 @@ def process_task(task):
     
     return 0
     
-
-def main(args):
-    # Global variables which will be set with some help from ArgumentParser:
-    global verbose,debug
-    
-    description = "<<PUT A HELPFUL DESCRIPTION HERE>>"
-    
+def parse_cli_args(args):
     # Parse arguments:
     import argparse
+    
+    description = "<<PUT A HELPFUL PROGRAM DESCRIPTION HERE>>"
+    
     parser = argparse.ArgumentParser(description=description)
     parser.add_argument('main_args',
         type=str, nargs='+', metavar='MAIN ARGUMENTS',
@@ -41,13 +38,29 @@ def main(args):
         type=int, nargs=3, metavar=('x','y','t'), default=[1,1,0],
         help="Print value of this and surrounding points to stdout "\
             +"(if '-d' is set) (EXAMPLE ONLY; NOT IMPLEMENTED IN TEMPLATE!)")
-    args = parser.parse_args()
     
+    #TODO print all arguments atuomatically if VERBOSE (do here to keep main clean)
+    
+    return parser.parse_args()
+    
+def main(args):
+    # Global variables which will be set with some help from ArgumentParser:
+    global VERBOSE, DEBUG, DEBUG_POINT
+    
+    args = parse_cli_args(args) # parse arguments
     # Propagate values to local/global variable names:
-    tasks   = args.main_args
-    verbose = args.verbose
-    debug   = args.debug
-    #pt_xyt = args.debug_point
+    tasks       = args.main_args
+    VERBOSE     = args.verbose
+    DEBUG       = args.debug
+    DEBUG_POINT = args.debug_point
+    
+    if VERBOSE:
+        print "Using verbose output mode."
+        print "fname_in:",type(fname_in),fname_in
+        print "fname_out:",type(fname_out),fname_out
+        print "VERBOSE:",type(VERBOSE),VERBOSE
+        print "DEBUG:",type(DEBUG),DEBUG
+        print "DEBUG_POINT:",type(DEBUG_POINT),DEBUG_POINT
     
     # Begin parallel or serial processing based on user input:
     if args.jobs > 1:
