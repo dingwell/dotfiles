@@ -39,6 +39,14 @@ endfor
 
 "Mouse settings
   set mouse=c   "Enforce command-line mouse settings even in gvim
+
+"Finding files:
+set path+=**  "Provides tab-completion for all file-related tasks!
+set wildmenu  "Display all matching files when we tab complete
+" These two settings allow:
+" * hitting <tab> to :find files in any subfolder of workdir
+" * Use wildcard (*) to make it fuzzy
+
 "
 " Filetype specific (TODO: move to filetype specific config files)
 "
