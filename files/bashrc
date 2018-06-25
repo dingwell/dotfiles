@@ -123,6 +123,6 @@ export PYTHONSTARTUP=$HOME/.python_startup
 export MATLABPATH=.:$HOME/matlab/pilt_functions:$HOME/matlab/googleearth  # Will automatically append ~/matlab if it exists
 
 # The following was set to make OPT-installed packages work (mainly NCO)
-export PATH=/opt/bin:$PATH
+export PATH=$HOME/bin:/opt/bin:$PATH
 export LD_LIBRARY_PATH=/opt/lib:$LD_LIBRARY_PATH
 export HDF5_DISABLE_VERSION_CHECK=1 # The HDF5 build ALWAYS fails on this!

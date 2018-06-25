@@ -13,6 +13,8 @@ xmodmap -e "keycode 135 = Super_L" # Make "menu"-key a right "super"
 # Mouse configuration
 set_mouse_sensitivity.sh  # Handled by shell script
 
+# System tools
+  xfce4-power-manager
   # gnome-settings-daemon &      # handles themes, starts gnome-screensaver. You may have to use gconf to disable it setting the background.
   # xfce4-session &		# Session manager (required for xfdesktop?)
   # xfdesktop &			# Manages the desktop (unable to display windows when running with awesome)
@@ -33,21 +35,22 @@ set_mouse_sensitivity.sh  # Handled by shell script
   #   export GNOME_KEYRING_CONTROL
   #   export GNOME_KEYRING_PID
  # Launch misc applications:
- blueman-applet &                       # Bluetooth manager
- claws-mail &                           # Claw e-mail client
- dropbox start &                        # Dropbox
+# blueman-applet &                       # Bluetooth manager
+# claws-mail &                           # Claw e-mail client
+# dropbox start &                        # Dropbox
  firefox &                              # Firefox web browser
  nm-applet &                            # Network Manager
- pulseaudio --start &		                # Pulse audio server
+ #pulseaudio --start &		                # Pulse audio server
  #pybliographic "${HOME}/Documents/Jobb_local/references/bibliography.bib" &  # Interferes with AWM's init
  xfce4-volumed			                    # Daemon for managing MM-keys (volume)
- gnome-encfs-manager &                  # GUI for mounting encrypted drives
+ cryptkeeper &
+ #gnome-encfs-manager &                  # GUI for mounting encrypted drives
  #gtg &                                  # Getting thing GNOME, planner
  #empathy &
  # Set Desktop wallpaper and launch Conky:
  nitrogen --restore &
- conky -c .conkyrc_main --pause=10 &    # Conky might crash if launched before WM, therefore: pause
- conky -c .conkyrc_remote.single_monitor --pause 10 &
+# conky -c .conkyrc_main --pause=10 &    # Conky might crash if launched before WM, therefore: pause
+# conky -c .conkyrc_remote.single_monitor --pause 10 &
  
 # Use transparency on each screen
  xcompmgr -d :0.0 &
