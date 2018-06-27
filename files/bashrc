@@ -108,6 +108,9 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     fi
 fi
 
+# Prevent weird behaviour of bash excaping '$' when tab-completing
+shopt -s direxpand
+
 #Set environment variables:
 export AFS2=$HOME/Models/stable/flx_wrf2/AFS2
 export WRF=$HOME/local/lib/ncarg/nclscripts/wrf

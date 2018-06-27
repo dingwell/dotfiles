@@ -41,7 +41,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 # SLURM
 alias squeue='squeue -u$USER -o "%.8i %.9P %.8j %.8u %.2t %.10M %.6D %16S %R"'
-alias watch-queue="watch '"'squeue -u$USER -o "%.8i %.9P %.8j %.8u %.2t %.10M %.6D %16S %R"'"'"
+alias watch-queue="watch --interval=60 '"'squeue -u$USER -o "%.8i %.9P %.8j %.8u %.2t %.10M %.6D %16S %R"'"'"
 
 # SSH
 alias ssh="ssh -X" # Use X-forwarding by default.

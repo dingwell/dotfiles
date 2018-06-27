@@ -18,8 +18,8 @@ conky.config = {
 	format_human_readable = true,-- use KiB,MiB etc instead of Bytes
 	gap_x = 30,-- Gap between borders of screen and text
 	gap_y = 105,
-	maximum_width = 220,
-	minimum_width = 220, minimum_height = 800,-- Minimum size of text area
+	maximum_width = 260,
+	minimum_width = 260, minimum_height = 800,-- Minimum size of text area
 	net_avg_samples = 3,-- No. of network samples to average
 	no_buffers = true,-- Subtract file system buffers from used memory?
 	override_utf8_locale = true,-- Force UTF8 encoding? (req. XFT)
