@@ -1,0 +1,21 @@
+#!/bin/bash
+# Wrapper for launching gourmet
+
+NOTE_DIR="$HOME/Notebooks/Gourmet"
+
+echo 'Launching gourmet through wrapper'
+
+#export LANG=sv_SE
+echo "Language for gourmet is now set to $LANG"
+
+echo "Checking if recipe directory ($NOTE_DIR) is properly mounted:"
+if [ -d "$NOTE_DIR" ]; then
+  echo "Found directory, will now launch gourmet, passing all arguments to the executable"
+  exec /usr/bin/gourmet --gourmet-directory=$HOME/Notebooks/Gourmet $@
+else
+  # Send the error message as both stdout and notification
+  MSG="Couldn't find recipe directory:\n$NOTE_DIR\ngourmet will not be launched"
+  echo "$MSG"
+  notify-send -u critical -t 5000 "gourmet wrapper" "$MSG"
+  exit 1
+fi

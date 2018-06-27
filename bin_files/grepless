@@ -1,0 +1,6 @@
+#!/bin/bash
+# grep function which automatically pipes output 
+# to less with color support (only use in a shell
+# with color support!)
+
+grep $@ --color=always | less -r

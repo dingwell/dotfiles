@@ -1,0 +1,1 @@
+/home/adam/opt/solarus_quests/run_zsdx.sh
