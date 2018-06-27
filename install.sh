@@ -41,7 +41,14 @@ careless_install(){
 cautious_install(){
   # Will only replace files within directories, not entire directories
   local DIR_IN=$1
-  local DIR_OUT=".$(echo "$DIR_IN"|sed 's/_files$//')"
+  local DIR_OUT=$2
+
+  if [[ ! -d $DIR_OUT ]]; then
+    echo "Missing directory: '$DIR_OUT', skipping..." 1>&2
+    return 1
+  fi
+  #local DIR_OUT=".$(echo "$DIR_IN"|sed 's/_files$//')"
+
   if [ -d "$DIR_IN" ]; then
     echo "Working with $HOME/$DIR_OUT, I'll try to be careful!"
     echo "STILL TESTING!"
@@ -50,7 +57,7 @@ cautious_install(){
     local FILES=$(cd $DIR_IN && find * -type f)
 
     for i in $FILES; do
-      local FILE_ORIG="$HOME/$DIR_OUT/$i"  # Get target file+path
+      local FILE_ORIG="$DIR_OUT/$i"  # Get target file+path
 
       # Ensure that target directory exists:
       CONFIG_DIR=".$DIR_IN/$(dirname $i)"  # Path relative to ~ or backup root
@@ -69,7 +76,7 @@ cautious_install(){
       ln -sv $WORKDIR/$DIR_IN/$i "$FILE_ORIG"
     done
   else
-    echo "No directory named '$DIR_IN', good, I will not do anything with '$HOME/$DIR_OUT'"
+    echo "No directory named '$DIR_IN', good, I will not do anything with '$DIR_OUT'"
   fi
 }
 
@@ -80,9 +87,15 @@ careless_install "$SUBDIR"
 # For files under ./config -- play it safe -- don't link entire directories
 # stick with files!
 SUBDIR=config_files
-cautious_install "$SUBDIR"
+TARGET=$HOME/.config
+cautious_install "$SUBDIR" "$TARGET"
 
 # For files under ./local -- play it safe:
 SUBDIR=local_files
-cautious_install "$SUBDIR"
+TARGET=$HOME/.local
+cautious_install "$SUBDIR" "$TARGET"
 
+# For files under ./bin -- play it safe:
+SUBDIR=bin_files
+TARGET=$HOME/bin
+cautious_install "$SUBDIR" "$TARGET"
